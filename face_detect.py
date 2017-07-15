@@ -57,9 +57,9 @@ if __name__ == '__main__':
        
              # 当按下"s"键时，将保存当前画面
         for x, y, w, h in rectangle:
-            roiImg = frame[y:y+h,x:x+w]
-            cv2.imwrite(clean_face_path + str(i) + '.jpg', roiImg)
-            
+            cutImg = gray[y:y+h,x:x+w]      #保存灰度人脸图像
+            #grayImg = cv2.cvtColor(cutImg, cv2.COLOR_BAYER_BG2GRAY)
+            cv2.imwrite(clean_face_path + str(i) + '.jpg', cutImg)
             i += 1
         if cv2.waitKey(10) & 0xFF == ord('q'):   # 当按下"q"键时，将退出循环
             break
