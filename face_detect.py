@@ -59,7 +59,7 @@ if __name__ == '__main__':
         for x, y, w, h in rectangle:
             cutImg = gray[y:y+h,x:x+w]      #保存灰度人脸图像
             #grayImg = cv2.cvtColor(cutImg, cv2.COLOR_BAYER_BG2GRAY)
-            resizeImg = cv2.resize(cutImg, (64,64),interpolation=cv2.INTER_CUBIC)
+            resizeImg = cv2.resize(cutImg, (100,100),interpolation = cv2.INTER_AREA)
             cv2.imwrite(clean_face_path + 'usr_zhang_' + str(i) + '.jpg', resizeImg)
             i += 1
         if cv2.waitKey(10) & 0xFF == ord('q'):   # 当按下"q"键时，将退出循环
