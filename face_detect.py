@@ -14,11 +14,11 @@ clean_face_path ='/Users/zhang/faceset/'
 cascade_fn = '/Users/zhang/anaconda/pkgs/opencv-2.4.11-py27_1/share/OpenCV/haarcascades/haarcascade_frontalface_alt.xml'
 cascade = cv2.CascadeClassifier(cascade_fn)
 eye_cascade = cv2.CascadeClassifier('/Users/zhang/anaconda/pkgs/opencv-2.4.11-py27_1/share/OpenCV/haarcascades/haarcascade_eye_tree_eyeglasses.xml')
+usr_id = 0
 
 def face_detect(img, cascade):
-     face = cascade.detectMultiScale(gray, scaleFactor=1.3,minNeighbors=4, minSize=(30, 30))
-     
-     return face
+    face = cascade.detectMultiScale(gray, scaleFactor=1.3,minNeighbors=4, minSize=(30, 30)) 
+    return face
 
 
 def eyes_detect(img,eye_cascade):
@@ -37,7 +37,7 @@ if __name__ == '__main__':
     color = (0,0,255)#red
     point1 = ()
     cap = cv2.VideoCapture(0)
-    i = 0
+    i = 1
     while(True):
         ret, frame = cap.read()
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -60,11 +60,18 @@ if __name__ == '__main__':
             cutImg = gray[y:y+h,x:x+w]      #保存灰度人脸图像
             #grayImg = cv2.cvtColor(cutImg, cv2.COLOR_BAYER_BG2GRAY)
             resizeImg = cv2.resize(cutImg, (100,100),interpolation = cv2.INTER_AREA)
-            cv2.imwrite(clean_face_path + 'usr_zhang_' + str(i) + '.jpg', resizeImg)
-            i += 1
+            #保存样本数量为100
+            while(i > 100):
+                i = 1
+                cv2.imwrite('{0}{1}{2}{3}{4}{5}'.format(clean_face_path,'usr',str(usr_id),'_',str(i),'.jpg'), resizeImg)
+                i += 1
+                break
+            while(i <= 100):
+                cv2.imwrite('{0}{1}{2}{3}{4}{5}'.format(clean_face_path,'usr',str(usr_id),'_',str(i),'.jpg'), resizeImg)
+                i += 1
+                break
         if cv2.waitKey(10) & 0xFF == ord('q'):   # 当按下"q"键时，将退出循环
             break
-
 
 cap.release()
 cv2.destroyAllWindows()
