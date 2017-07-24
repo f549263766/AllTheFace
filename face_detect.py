@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+
 # -*- coding: utf-8 -*-
 """
 Created on Sun Apr 23 14:13:01 2017
@@ -10,11 +10,11 @@ Created on Sun Apr 23 14:13:01 2017
 import cv2
 #from matplotlib import pyplot as plt
 
-clean_face_path ='/Users/zhang/faceset/'
-cascade_fn = '/Users/zhang/anaconda/pkgs/opencv-2.4.11-py27_1/share/OpenCV/haarcascades/haarcascade_frontalface_alt.xml'
+clean_face_path ='/Users/zhang/developer/users_face_file/'
+cascade_fn = '/Users/zhang/miniconda2/pkgs/opencv-3.1.0-np112py27_1/share/OpenCV/haarcascades/haarcascade_frontalface_alt.xml'
 cascade = cv2.CascadeClassifier(cascade_fn)
-eye_cascade = cv2.CascadeClassifier('/Users/zhang/anaconda/pkgs/opencv-2.4.11-py27_1/share/OpenCV/haarcascades/haarcascade_eye_tree_eyeglasses.xml')
-usr_id = 0
+#eye_cascade = cv2.CascadeClassifier('/Users/zhang/anaconda/pkgs/opencv-2.4.11-py27_1/share/OpenCV/haarcascades/haarcascade_eye_tree_eyeglasses.xml')
+usr_id = 1000
 
 def face_detect(img, cascade):
     face = cascade.detectMultiScale(gray, scaleFactor=1.3,minNeighbors=4, minSize=(30, 30)) 
@@ -63,15 +63,16 @@ if __name__ == '__main__':
             #保存样本数量为100
             while(i > 100):
                 i = 1
-                cv2.imwrite('{0}{1}{2}{3}{4}{5}'.format(clean_face_path,'usr',str(usr_id),'_',str(i),'.jpg'), resizeImg)
+                cv2.imwrite('{0}{1}{2}{3}{4}'.format(clean_face_path,str(usr_id),'_',str(i),'.jpg'), resizeImg)
                 i += 1
                 break
             while(i <= 100):
-                cv2.imwrite('{0}{1}{2}{3}{4}{5}'.format(clean_face_path,'usr',str(usr_id),'_',str(i),'.jpg'), resizeImg)
+                cv2.imwrite('{0}{1}{2}{3}{4}'.format(clean_face_path,str(usr_id),'_',str(i),'.jpg'), resizeImg)
                 i += 1
                 break
         if cv2.waitKey(10) & 0xFF == ord('q'):   # 当按下"q"键时，将退出循环
             break
 
+cap.release()
 cap.release()
 cv2.destroyAllWindows()
